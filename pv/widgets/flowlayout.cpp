@@ -134,21 +134,13 @@ QSize FlowLayout::sizeHint() const
 
 QSize FlowLayout::minimumSize() const
 {
-	QSize size(0, 0);
+    QSize size;
+    for (const QLayoutItem *item : qAsConst(itemList))
+        size = size.expandedTo(item->minimumSize());
 
-	for (QLayoutItem* item : itemList) {
-		int w = item->geometry().x() + item->geometry().width();
-		if (w > size.width())
-			size.setWidth(w);
-
-		int h = item->geometry().y() + item->geometry().height();
-		if (h > size.height())
-			size.setHeight(h);
-	}
-
-	size += QSize(2 * margin(), 2 * margin());
-
-	return size;
+    const QMargins margins = contentsMargins();
+    size += QSize(margins.left() + margins.right(), margins.top() + margins.bottom());
+    return size;
 }
 
 int FlowLayout::doLayout(const QRect &rect, bool testOnly) const

@@ -84,7 +84,7 @@ public:
 };
 
 Settings::Settings(DeviceManager &device_manager, QWidget *parent) :
-	QDialog(parent, nullptr),
+	QDialog(parent, Qt::Dialog),
 	device_manager_(device_manager)
 {
 	resize(600, 400);
@@ -261,7 +261,7 @@ QWidget *Settings::get_general_settings_form(QWidget *parent) const
 	if (current_style.isEmpty())
 		style_cb->setCurrentIndex(0);
 	else
-		style_cb->setCurrentIndex(style_cb->findText(current_style, nullptr));
+		style_cb->setCurrentIndex(style_cb->findText(current_style, Qt::MatchExactly));
 
 	connect(style_cb, SIGNAL(currentIndexChanged(int)),
 		this, SLOT(on_general_style_changed(int)));

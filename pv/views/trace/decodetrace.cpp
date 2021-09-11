@@ -1250,14 +1250,14 @@ void DecodeTrace::initialize_row_widgets(DecodeTraceRow* r, unsigned int row_id)
 	QPalette selector_palette = owner_->view()->palette();
 
 	if (GlobalSettings::current_theme_is_dark()) {
-		header_palette.setColor(QPalette::Background,
+		header_palette.setColor(QPalette::Window,
 			QColor(255, 255, 255, ExpansionAreaHeaderAlpha));
-		selector_palette.setColor(QPalette::Background,
+		selector_palette.setColor(QPalette::Window,
 			QColor(255, 255, 255, ExpansionAreaAlpha));
 	} else {
-		header_palette.setColor(QPalette::Background,
+		header_palette.setColor(QPalette::Window,
 			QColor(0, 0, 0, ExpansionAreaHeaderAlpha));
-		selector_palette.setColor(QPalette::Background,
+		selector_palette.setColor(QPalette::Window,
 			QColor(0, 0, 0, ExpansionAreaAlpha));
 	}
 

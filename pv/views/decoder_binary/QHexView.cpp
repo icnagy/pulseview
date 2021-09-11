@@ -412,7 +412,7 @@ void QHexView::paintEvent(QPaintEvent *event)
 				painter.setPen(palette().color(QPalette::Text));
 			}
 
-			painter.drawText(x, y, QString(ch));
+			painter.drawText(x, y, QString((ushort)ch));
 			x += charWidth_;
 		}
 

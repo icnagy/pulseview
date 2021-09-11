@@ -342,7 +342,7 @@ GVariant* GlobalSettings::restore_gvariant(QSettings &settings)
 
 	QByteArray data = settings.value("value").toByteArray();
 
-	gpointer var_data = g_memdup((gconstpointer)data.constData(),
+	gpointer var_data = g_memdup2((gconstpointer)data.constData(),
 		(guint)data.size());
 
 	GVariant *value = g_variant_new_from_data(var_type, var_data,
@@ -368,7 +368,7 @@ Glib::VariantBase GlobalSettings::restore_variantbase(QSettings &settings)
 
 	QByteArray data = settings.value("value").toByteArray();
 
-	gpointer var_data = g_memdup((gconstpointer)data.constData(),
+	gpointer var_data = g_memdup2((gconstpointer)data.constData(),
 		(guint)data.size());
 
 	GVariant *value = g_variant_new_from_data(var_type, var_data,

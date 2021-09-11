@@ -102,9 +102,12 @@ pkg_check_modules(PKGDEPS REQUIRED ${PKGDEPS})
 
 set(CMAKE_AUTOMOC TRUE)
 
-find_package(Qt5 5.3 COMPONENTS Core Gui LinguistTools Widgets Svg REQUIRED)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-message(STATUS "Qt version: ${Qt5_VERSION}")
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
 
 if(WIN32)
 	# MXE workaround: Use pkg-config to find Qt5 libs.
@@ -115,7 +118,10 @@ if(WIN32)
 	endif()
 endif()
 
-set(QT_LIBRARIES Qt5::Gui Qt5::Widgets Qt5::Svg)
+find_package(Qt6 COMPONENTS Core Gui LinguistTools Widgets Svg REQUIRED)
+
+set(QT_LIBRARIES Qt6::Gui Qt6::Widgets Qt6::Svg)
+add_compile_definitions(QT_DISABLE_DEPRECATED_BEFORE=0x050F00)
 
 set(BOOSTCOMPS filesystem serialization system)
 if(ENABLE_TESTS)
@@ -439,7 +445,7 @@ if(ANDROID)
 	)
 endif()
 
-qt5_add_resources(pulseview_RESOURCES_RCC ${pulseview_RESOURCES})
+qt_add_resources(pulseview_RESOURCES_RCC ${pulseview_RESOURCES})
 
 #===============================================================================
 #= Translations
@@ -451,10 +457,10 @@ if (NOT CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR)
 	configure_file("translations.qrc" "translations.qrc" COPYONLY)
 endif ()
 
-qt5_add_translation(QM_FILES ${TS_FILES})
-qt5_create_translation(QM_FILES ${pulseview_SOURCES} ${TS_FILES})
+qt_add_translation(QM_FILES ${TS_FILES})
+qt_create_translation(QM_FILES ${pulseview_SOURCES} ${TS_FILES})
 
-qt5_add_resources(pulseview_RESOURCES_RCC ${CMAKE_BINARY_DIR}/translations.qrc)
+qt_add_resources(pulseview_RESOURCES_RCC ${CMAKE_BINARY_DIR}/translations.qrc)
 
 #===============================================================================
 #= Global Definitions
